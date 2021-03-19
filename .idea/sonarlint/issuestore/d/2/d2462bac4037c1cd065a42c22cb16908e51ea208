@@ -1,0 +1,27 @@
+
+0
+java:S1220""Move this file to a named package.
+W
+java:S1118":Add a private constructor to hide the implicit public one.(¼ğ¾8ì–‰ï/
+U	java:S106O"9Replace this use of System.out or System.err by a logger.(¾‹í¨8¦›ˆ‚/
+X
+java:S1128";Remove this unused import 'javax.swing.text.DateFormatter'.(Øúã¾8–Ã×‹‚/
+T
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ8­’Œ‚/
+R
+java:S1128
+"5Remove this unused import 'java.text.ParseException'.(ñ®ï•8‚ÛÏŒ‚/
+]
+java:S1128";Remove this unused import 'java.time.temporal.ChronoField'.(£¬ù³øÿÿÿÿ8ª°¢‚/
+W
+java:S1141H"5Extract this nested try block into a separate method.(şÇ›÷ûÿÿÿÿ8¦›ˆ‚/
+B
+java:S3457O"%String contains no format specifiers.(¾‹í¨8¦›ˆ‚/
+H
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8Ì®ÁŒ‚/
+Z	java:S106J"9Replace this use of System.out or System.err by a logger.(¼û¤ñûÿÿÿÿ8¦›ˆ‚/
+Z	java:S106L"9Replace this use of System.out or System.err by a logger.(±é‹Ÿüÿÿÿÿ8¦›ˆ‚/
+‘
+java:S1319"tThe type of the "manifests" object should be an interface such as "List" rather than the implementation "ArrayList".(…ê¿´8³Ñ©î/
+N
+java:S1128	"1Remove this unused import 'java.text.DateFormat'.(÷Œá¼8–Ã×‹‚/
