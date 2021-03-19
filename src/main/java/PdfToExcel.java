@@ -13,22 +13,20 @@ import java.util.stream.Stream;
 
 /**
  * Created on 10.03.2021
- *
  * @author Mykola Horkov
  * mykola.horkov@gmail.com
  */
 public class PdfToExcel {
 
-    private static String TOTAL_WEIGHT = "TOTAL WEIGHT";
-    private static String COLLECT_FROM = "-------- Collect from: --------";
-    private static String SUPPLIER_CODE = "SUPPLIER CODE";
-    private static String COLLECTION_DATE = "COLLECTION DATE";
+    private static final String TOTAL_WEIGHT = "TOTAL WEIGHT";
+    private static final String COLLECT_FROM = "-------- Collect from: --------";
+    private static final String SUPPLIER_CODE = "SUPPLIER CODE";
+    private static final String COLLECTION_DATE = "COLLECTION DATE";
 
     private static ArrayList<Manifest> manifests = new ArrayList<>();
 
     public static void main(String[] args) throws URISyntaxException {
         String pathToDir = getPath();
-        System.out.println(pathToDir);
         try (Stream<Path> walk = Files.walk(Paths.get(pathToDir))) {
             List<String> result = walk
                     .filter(p -> !Files.isDirectory(p))   // not a directory
@@ -53,7 +51,6 @@ public class PdfToExcel {
         try {
             String[] text = pdfManager.toText().split("\\r?\\n");
             manifests.add(readManifest(text));
-            //readManifest(text);
         } catch (IOException ex) {
             Logger.getLogger(PdfToExcel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,10 +83,7 @@ public class PdfToExcel {
                 dateCollect = text[i + 1].split(" ")[0];
                 dateDeliver = text[i + 1].split(" ")[2];
             }
-            //System.out.println(i + ": " + text[i]);
         }
-
         return new Manifest(dateCollect, dateDeliver, plant, invertedDate, manifest, supplier, palletQty, qbm, weight);
     }
-
 }
