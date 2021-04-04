@@ -1,4 +1,7 @@
 
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarStyle;
+import org.apache.poi.ss.formula.functions.Match;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,6 +17,7 @@ import java.util.Locale;
 
 /**
  * Created on 10.03.2021
+ *
  * @author Mykola Horkov
  * mykola.horkov@gmail.com
  */
@@ -21,6 +25,11 @@ import java.util.Locale;
 public class ExcelCreator {
 
     public static void instanceToExcelFromTemplate(ArrayList<Manifest> manifests, String pathToSave) {
+        if (manifests.size() == 0){
+            System.out.println("No manifests were found...");
+            return;
+        }
+
         try (XSSFWorkbook workbook = new XSSFWorkbook();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
@@ -57,10 +66,19 @@ public class ExcelCreator {
 
             int rowIdx = 2;
 
+
+            System.out.println(manifests.size() + " manifests were found...");
+            ProgressBar pb = new ProgressBar("Progress pdf", manifests.size(), ProgressBarStyle.ASCII).start();
+
             for (int i = 0; i < manifests.size(); i++, rowIdx++) {
                 Row row = sheet.createRow(rowIdx);
                 fillRowWithData(manifests.get(i), row);
+                pb.step();
+                pb.setExtraMessage("Parsing...");
             }
+            pb.stop();
+
+            System.out.println("Writing of Excel file");
             workbook.write(out);
             try (FileOutputStream outputStream = new FileOutputStream(pathToSave)) {
                 workbook.write(outputStream);
@@ -110,7 +128,7 @@ public class ExcelCreator {
                 .appendPattern("dd-MMM-yyyy");
 
         DateTimeFormatter parser = builder.toFormatter(Locale.ENGLISH);
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern( "dd-MM-yyyy" );
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         dateS = addFullYear(dateS);
         LocalDate locDate = LocalDate.parse(dateS, parser);
         return locDate.format(formater);

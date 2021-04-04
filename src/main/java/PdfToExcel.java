@@ -22,6 +22,8 @@ public class PdfToExcel {
     private static final String COLLECT_FROM = "-------- Collect from: --------";
     private static final String SUPPLIER_CODE = "SUPPLIER CODE";
     private static final String COLLECTION_DATE = "COLLECTION DATE";
+    private static final String JELCZ = "JELCZ";
+
 
     private static ArrayList<Manifest> manifests = new ArrayList<>();
 
@@ -61,6 +63,11 @@ public class PdfToExcel {
         String dateCollect = "";
         String dateDeliver = "";
         String plant = text[1];
+
+        if(text[2].contains(JELCZ)){
+            plant = plant + " " + JELCZ;
+        }
+
         int invertedDate = 0;
         String manifest = "";
         String supplier = "";
@@ -77,6 +84,7 @@ public class PdfToExcel {
                 palletQty = Integer.parseInt(cargo[4]);
             } else if (text[i].contains(COLLECT_FROM)) {
                 supplier = text[i - 1];
+                supplier = supplier.length() < 2 ? text[i - 2] + " " + supplier : supplier;
             } else if (text[i].contains(SUPPLIER_CODE)) {
                 invertedDate = Integer.parseInt(text[i + 1].split(" ")[1]);
             } else if (text[i].contains(COLLECTION_DATE)) {
